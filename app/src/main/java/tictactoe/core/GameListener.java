@@ -1,7 +1,7 @@
-package tictactoe;
+package tictactoe.core;
 
 
-interface GameListener {
+public abstract class GameListener {
 
-    public abstract void put(GameAction action);
+    public abstract void onEvent(GameEvent event);
 }

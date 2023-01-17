@@ -1,6 +1,5 @@
 package tictactoe.core;
 
-
 public class CircularBuffer {
 
     // Initial Capacity of Buffer
@@ -21,14 +20,14 @@ public class CircularBuffer {
         array = new Object[capacity];
     }
 
-    public void push(Object element) throws Exception
+    public void push(Object element)
     {
         // Size of the array increases as elements are added
         size++;
 
         // Checking if the array is full
         if (size > capacity) {
-            throw new Exception("Buffer Overflow");
+            throw new RuntimeException("Buffer Overflow");
         }
 
         // Storing the element in the array
@@ -38,11 +37,11 @@ public class CircularBuffer {
         tail = (tail + 1) % capacity;
     }
 
-    public Object pull() throws Exception
+    public Object pull()
     {
         // Checking if the array is empty
         if (size == 0) {
-            throw new Exception("Empty Buffer");
+            throw new RuntimeException("Empty Buffer");
         }
 
         // Getting the element

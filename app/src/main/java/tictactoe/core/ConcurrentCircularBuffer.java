@@ -8,12 +8,12 @@ public class ConcurrentCircularBuffer extends CircularBuffer {
     }
 
     @Override
-    public synchronized void push(Object element) throws Exception {
+    public synchronized void push(Object element) {
         super.push(element);
     }
 
     @Override
-    public synchronized Object pull() throws Exception {
+    public synchronized Object pull() {
         return super.pull();
     }
 

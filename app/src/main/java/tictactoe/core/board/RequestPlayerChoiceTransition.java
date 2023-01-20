@@ -1,12 +1,13 @@
 package tictactoe.core.board;
 
+import lombok.Getter;
+import lombok.experimental.SuperBuilder;
+
+@Getter
+@SuperBuilder
 public class RequestPlayerChoiceTransition extends BoardTransition {
 
     private BoardState.Player player;
-
-    RequestPlayerChoiceTransition(BoardState.Player player) {
-        this.player = player;
-    }
 
     @Override
     public BoardState apply(BoardState state, BoardData data) {

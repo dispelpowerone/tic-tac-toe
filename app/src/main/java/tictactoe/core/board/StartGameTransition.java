@@ -1,6 +1,8 @@
 package tictactoe.core.board;
 
+import lombok.experimental.SuperBuilder;
 
+@SuperBuilder
 public class StartGameTransition extends BoardTransition {
 
     @Override

@@ -1,6 +1,5 @@
 package tictactoe.core.board;
 
-
 public class EndOfTurnState extends BoardState {
 
     private BoardState.Player player;
@@ -15,6 +14,8 @@ public class EndOfTurnState extends BoardState {
         // check parity condition
         final BoardState.Player nextPlayer =
             (player == BoardState.Player.LEFT) ? BoardState.Player.RIGHT : BoardState.Player.LEFT;
-        return new RequestPlayerChoiceTransition(nextPlayer);
+        return RequestPlayerChoiceTransition.builder()
+                    .player(nextPlayer)
+                    .build();
     }
 }

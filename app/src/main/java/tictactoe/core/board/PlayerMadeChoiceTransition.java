@@ -1,6 +1,10 @@
 package tictactoe.core.board;
 
+import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 
+@Getter
+@SuperBuilder
 public class PlayerMadeChoiceTransition extends BoardTransition {
 
     private BoardState.Player player;

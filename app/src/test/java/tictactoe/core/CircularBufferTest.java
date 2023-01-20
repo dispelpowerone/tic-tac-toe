@@ -14,7 +14,7 @@ public class CircularBufferTest {
     public ExpectedException exceptionRule = ExpectedException.none();
 
     @Test
-    public void whenEmpty_thenError() throws Exception {
+    public void whenEmpty_thenError() {
         CircularBuffer buffer = new CircularBuffer(10);
 
         exceptionRule.expect(Exception.class);
@@ -22,7 +22,7 @@ public class CircularBufferTest {
     }
 
     @Test
-    public void whenOverflow_thenError() throws Exception {
+    public void whenOverflow_thenError() {
         CircularBuffer buffer = new CircularBuffer(3);
 
         exceptionRule.expect(Exception.class);
@@ -33,7 +33,7 @@ public class CircularBufferTest {
     }
 
     @Test
-    public void whenPushed_thenOk() throws Exception {
+    public void whenPushed_thenOk() {
         CircularBuffer buffer = new CircularBuffer(3);
 
         buffer.push(1);

@@ -1,6 +1,6 @@
 package tictactoe.core;
 
-public class EventsStream implements InputEventStream, OutputEventStream {
+public class EventStream implements InputEventStream, OutputEventStream {
 
     private ConcurrentCircularBuffer buffer = new ConcurrentCircularBuffer(64);
 

@@ -3,20 +3,18 @@ package tictactoe.core.board;
 import tictactoe.core.InputEventStream;
 import tictactoe.core.OutputEventStream;
 
+import lombok.Setter;
+
 public class BoardMasterController {
 
     private BoardData boardData = new BoardData();
     private BoardState boardState = new InitialState();
+
+    @Setter
     private InputEventStream inputStream;
+
+    @Setter
     private OutputEventStream outputStream;
-
-    public void setInputEventStream(InputEventStream inputStream) {
-        this.inputStream = inputStream;
-    }
-
-    public void setOutputEventStream(OutputEventStream outputStream) {
-        this.outputStream = outputStream;
-    }
 
     public void update() {
         applyExternalTransitions();

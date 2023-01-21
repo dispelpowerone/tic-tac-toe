@@ -5,6 +5,7 @@ public class EndOfTurnState extends BoardState {
     private BoardState.Player player;
 
     EndOfTurnState(BoardState.Player player) {
+        super(StateId.END_OF_TURN);
         this.player = player;
     }
 

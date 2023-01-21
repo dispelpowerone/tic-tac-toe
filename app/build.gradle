@@ -36,6 +36,10 @@ application {
     mainClass = 'tictactoe.App'
 }
 
+run {
+    standardInput = System.in
+}
+
 checkstyle {
     toolVersion('10.3.1')
 }

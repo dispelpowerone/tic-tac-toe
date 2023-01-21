@@ -4,15 +4,20 @@
 
 package tictactoe;
 
+import tictactoe.client.GameController;
+
+import java.util.Scanner;
+
 /**
 * Main.
 */
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        GameController gameController = new GameController();
+        while (true) {
+            gameController.update();
+            gameController.draw();
+        }
     }
 }

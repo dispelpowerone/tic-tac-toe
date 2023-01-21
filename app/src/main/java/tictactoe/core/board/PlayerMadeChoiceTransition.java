@@ -1,8 +1,10 @@
 package tictactoe.core.board;
 
-import lombok.Getter;
 import lombok.experimental.SuperBuilder;
+import lombok.Getter;
+import lombok.ToString;
 
+@ToString
 @Getter
 @SuperBuilder
 public class PlayerMadeChoiceTransition extends BoardTransition {
@@ -17,6 +19,8 @@ public class PlayerMadeChoiceTransition extends BoardTransition {
         final char marker = (player == BoardState.Player.LEFT) ? 'X' : 'O';
         data.markCell(cellIndex, marker);
         // Return next state
-        return new EndOfTurnState(player);
+        return EndOfTurnState.builder()
+            .player(player)
+            .build();
     }
 }

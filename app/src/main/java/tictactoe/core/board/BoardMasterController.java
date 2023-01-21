@@ -8,7 +8,7 @@ import lombok.Setter;
 public class BoardMasterController {
 
     private BoardData boardData = new BoardData();
-    private BoardState boardState = new InitialState();
+    private BoardState boardState = InitialState.builder().build();
 
     @Setter
     private InputEventStream inputStream;
@@ -24,16 +24,18 @@ public class BoardMasterController {
     private void applyExternalTransitions() {
         BoardTransition transition;
         while ((transition = (BoardTransition)inputStream.read()) != null) {
-            outputStream.write(transition);
             boardState = transition.apply(boardState, boardData);
+            outputStream.write(transition);
+            System.out.printf("BoardMasterController::applyExternalTransitions: %s, %s\n", transition, boardState);
         }
     }
 
     private void applyMasterTransitions() {
         BoardTransition transition;
         while ((transition = boardState.nextTransition(boardData)) != null) {
-            outputStream.write(transition);
             boardState = transition.apply(boardState, boardData);
+            outputStream.write(transition);
+            System.out.printf("BoardMasterController::applyMasterTransitions: %s, %s\n", transition, boardState);
         }
     }
 }

@@ -1,13 +1,15 @@
 package tictactoe.core.board;
 
+import lombok.experimental.SuperBuilder;
+import lombok.Getter;
+import lombok.ToString;
+
+@SuperBuilder
+@Getter
+@ToString
 public class EndOfTurnState extends BoardState {
 
     private BoardState.Player player;
-
-    EndOfTurnState(BoardState.Player player) {
-        super(StateId.END_OF_TURN);
-        this.player = player;
-    }
 
     @Override
     public BoardTransition nextTransition(BoardData data) {
@@ -16,6 +18,7 @@ public class EndOfTurnState extends BoardState {
         final BoardState.Player nextPlayer =
             (player == BoardState.Player.LEFT) ? BoardState.Player.RIGHT : BoardState.Player.LEFT;
         return RequestPlayerChoiceTransition.builder()
+                    .actorId(Long.valueOf(1))
                     .player(nextPlayer)
                     .build();
     }

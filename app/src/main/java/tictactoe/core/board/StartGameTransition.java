@@ -1,7 +1,9 @@
 package tictactoe.core.board;
 
 import lombok.experimental.SuperBuilder;
+import lombok.ToString;
 
+@ToString
 @SuperBuilder
 public class StartGameTransition extends BoardTransition {
 
@@ -11,6 +13,8 @@ public class StartGameTransition extends BoardTransition {
         // Update data
         data.reset();
         // Return next state
-        return new WaitPlayerChoiceState(BoardState.Player.LEFT);
+        return WaitPlayerChoiceState.builder()
+            .player(BoardState.Player.LEFT)
+            .build();
     }
 }

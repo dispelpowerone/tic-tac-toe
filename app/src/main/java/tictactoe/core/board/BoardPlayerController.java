@@ -6,13 +6,11 @@ import tictactoe.core.OutputEventStream;
 import lombok.Setter;
 import lombok.Getter;
 
+@Getter
 public class BoardPlayerController {
 
-    @Getter
     private BoardData boardData = new BoardData();
-
-    @Getter
-    private BoardState boardState = new InitialState();
+    private BoardState boardState = InitialState.builder().build();
 
     @Setter
     private InputEventStream masterInputStream;
@@ -38,8 +36,8 @@ public class BoardPlayerController {
     private void applyPlayerTransitions() {
         BoardTransition transition;
         while ((transition = (BoardTransition)playerInputStream.read()) != null) {
-            outputStream.write(transition);
             boardState = transition.apply(boardState, boardData);
+            outputStream.write(transition);
         }
     }
 }

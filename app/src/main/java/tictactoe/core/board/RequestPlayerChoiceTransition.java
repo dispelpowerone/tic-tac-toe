@@ -1,8 +1,10 @@
 package tictactoe.core.board;
 
-import lombok.Getter;
 import lombok.experimental.SuperBuilder;
+import lombok.Getter;
+import lombok.ToString;
 
+@ToString
 @Getter
 @SuperBuilder
 public class RequestPlayerChoiceTransition extends BoardTransition {
@@ -14,6 +16,8 @@ public class RequestPlayerChoiceTransition extends BoardTransition {
         // Check preconditions
         // Update data
         // Return next state
-        return new WaitPlayerChoiceState(player);
+        return WaitPlayerChoiceState.builder()
+            .player(player)
+            .build();
     }
 }

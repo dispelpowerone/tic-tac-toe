@@ -6,9 +6,8 @@ import tictactoe.core.board.BoardMasterController;
 import tictactoe.core.board.BoardPlayerController;
 import tictactoe.core.board.BoardData;
 import tictactoe.core.board.BoardState;
-import tictactoe.core.board.BoardState.StateId;
-// Events
-import tictactoe.core.board.StartGameTransition;
+// Transitions and states
+import tictactoe.core.board.*;
 
 import java.util.Scanner;
 
@@ -20,6 +19,7 @@ public class GameController {
     private EventStream playerMasterStream = new EventStream();
     private EventStream masterPlayerStream = new EventStream();
     private Scanner inputScanner;
+    private BoardState.Player currentPlayer;
 
     public GameController() {
         // Master controller
@@ -36,8 +36,8 @@ public class GameController {
     }
 
     public void update() {
-        boardMasterController.update();
         boardPlayerController.update();
+        boardMasterController.update();
     }
 
     public void draw() {
@@ -59,10 +59,11 @@ public class GameController {
 
     private void drawCommands(BoardState boardState) {
         System.out.printf("State: %s\n", boardState.toString());
-        if (boardState.getStateId() == StateId.INITIAL) {
+        if (boardState instanceof InitialState) {
             System.out.println("Commands: s");
         }
-        else if (boardState.getStateId() == StateId.WAIT_PLAYER_CHOICE) {
+        else if (boardState instanceof WaitPlayerChoiceState) {
+            currentPlayer = ((WaitPlayerChoiceState)boardState).getPlayer();
             System.out.println("Commands: 1-9");
         }
         else {
@@ -71,13 +72,29 @@ public class GameController {
     }
 
     private void readPlayerCommand() {
-        String command = inputScanner.nextLine();
+        String input = inputScanner.nextLine();
+        if (input.isEmpty()) {
+            return;
+        }
+
+        char command = input.charAt(0);
+
         GameEvent event = null;
-        if (command.equals("s")) {
+        if (command == 's') {
             event = StartGameTransition.builder()
                 .actorId(Long.valueOf(2))
                 .build();
         }
-        playerInputStream.write(event);
+        else if (command >= '1' && command <= '9') {
+            event = PlayerMadeChoiceTransition.builder()
+                .actorId(Long.valueOf(2))
+                .player(currentPlayer)
+                .cellIndex(command - '1')
+                .build();
+        }
+
+        if (event != null) {
+            playerInputStream.write(event);
+        }
     }
 }

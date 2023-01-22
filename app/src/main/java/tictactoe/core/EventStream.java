@@ -5,15 +5,15 @@ public class EventStream implements InputEventStream, OutputEventStream {
     private ConcurrentCircularBuffer buffer = new ConcurrentCircularBuffer(64);
 
     @Override
-    public GameEvent read() {
+    public Event read() {
         if (buffer.isEmpty()) {
             return null;
         }
-        return (GameEvent)buffer.pull();
+        return (Event)buffer.pull();
     }
 
     @Override
-    public void write(GameEvent event) {
+    public void write(Event event) {
         buffer.push(event);
     }
 }

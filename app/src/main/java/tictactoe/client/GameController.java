@@ -1,7 +1,7 @@
 package tictactoe.client;
 
 import tictactoe.core.EventStream;
-import tictactoe.core.GameEvent;
+import tictactoe.core.Event;
 import tictactoe.core.board.BoardMasterController;
 import tictactoe.core.board.BoardPlayerController;
 import tictactoe.core.board.BoardData;
@@ -44,7 +44,7 @@ public class GameController {
     }
 
     private void readMasterEvents() {
-        GameEvent event;
+        Event event;
         while ((event = masterOutputStream.read()) != null) {
             if (event instanceof BoardTransition) {
                 playerMasterStream.write(event);
@@ -94,7 +94,7 @@ public class GameController {
 
         char command = input.charAt(0);
 
-        GameEvent event = null;
+        Event event = null;
         if (command == 's') {
             event = StartGameTransition.builder()
                 .actorId(Long.valueOf(2))

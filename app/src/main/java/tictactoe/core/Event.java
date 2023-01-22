@@ -8,7 +8,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 @AllArgsConstructor
-public abstract class GameEvent {
+public abstract class Event {
 
     @NonNull
     private Long actorId;

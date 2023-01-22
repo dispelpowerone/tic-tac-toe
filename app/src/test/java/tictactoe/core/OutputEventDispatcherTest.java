@@ -50,16 +50,4 @@ public class OutputEventDispatcherTest {
         Assert.assertEquals(Long.valueOf(3), eventDest2.getActorId());
         Assert.assertNull(dest2.read());
     }
-
-    @Test
-    public void whenSentToTheSameActor_thenSkip() {
-        OutputEventDispatcher dispatcher = new OutputEventDispatcher();
-        EventStream dest1 = new EventStream();
-        dispatcher.addDestination(Long.valueOf(1), dest1);
-        dispatcher.write(new TestEvent(Long.valueOf(3)));
-        Assert.assertNotNull(dest1.read());
-        Assert.assertNull(dest1.read());
-        dispatcher.write(new TestEvent(Long.valueOf(1)));
-        Assert.assertNull(dest1.read());
-    }
 }

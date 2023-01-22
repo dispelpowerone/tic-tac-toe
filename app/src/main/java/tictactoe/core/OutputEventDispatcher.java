@@ -12,9 +12,7 @@ public class OutputEventDispatcher implements OutputEventStream {
     public void write(GameEvent event) {
         destinations.forEach(
             (actorId, stream) -> {
-                if (actorId != event.getActorId()) {
-                    stream.write(event);
-                }
+                stream.write(event);
             }
         );
     }

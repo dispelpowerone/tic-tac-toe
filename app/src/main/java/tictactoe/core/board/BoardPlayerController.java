@@ -22,8 +22,8 @@ public class BoardPlayerController {
     private OutputEventStream outputStream;
 
     public void update() {
-        applyExternalTransitions();
         applyPlayerTransitions();
+        applyExternalTransitions();
     }
 
     private void applyExternalTransitions() {
@@ -36,7 +36,6 @@ public class BoardPlayerController {
     private void applyPlayerTransitions() {
         BoardTransition transition;
         while ((transition = (BoardTransition)playerInputStream.read()) != null) {
-            boardState = transition.apply(boardState, boardData);
             outputStream.write(transition);
         }
     }

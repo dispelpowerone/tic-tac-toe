@@ -17,19 +17,20 @@ public class GameController {
     private BoardPlayerController boardPlayerController = new BoardPlayerController();
     private EventStream playerInputStream = new EventStream();
     private EventStream playerMasterStream = new EventStream();
-    private EventStream masterPlayerStream = new EventStream();
+    private EventStream materInputStream = new EventStream();
+    private EventStream masterOutputStream = new EventStream();
     private Scanner inputScanner;
     private BoardState.Player currentPlayer;
 
     public GameController() {
         // Master controller
-        boardMasterController.setInputStream(playerMasterStream);
-        boardMasterController.setOutputStream(masterPlayerStream);
+        boardMasterController.setInputStream(materInputStream);
+        boardMasterController.setOutputStream(masterOutputStream);
 
         // Player controller
-        boardPlayerController.setOutputStream(playerMasterStream);
         boardPlayerController.setPlayerInputStream(playerInputStream);
-        boardPlayerController.setMasterInputStream(masterPlayerStream);
+        boardPlayerController.setMasterInputStream(playerMasterStream);
+        boardPlayerController.setOutputStream(materInputStream);
 
         // Hook up stdin
         inputScanner = new Scanner(System.in);
@@ -38,6 +39,20 @@ public class GameController {
     public void update() {
         boardPlayerController.update();
         boardMasterController.update();
+        readMasterEvents();
+        boardPlayerController.update();
+    }
+
+    private void readMasterEvents() {
+        GameEvent event;
+        while ((event = masterOutputStream.read()) != null) {
+            if (event instanceof BoardTransition) {
+                playerMasterStream.write(event);
+            }
+            else {
+                System.out.printf("GameController::readMasterEvents: Skip event: %s\n", event);
+            }
+        }
     }
 
     public void draw() {

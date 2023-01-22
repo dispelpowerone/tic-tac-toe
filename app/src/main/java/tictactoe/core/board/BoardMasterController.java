@@ -1,6 +1,7 @@
 package tictactoe.core.board;
 
 import tictactoe.core.InputEventStream;
+import tictactoe.core.InvalidGameEvent;
 import tictactoe.core.OutputEventStream;
 
 import lombok.Setter;
@@ -24,9 +25,20 @@ public class BoardMasterController {
     private void applyExternalTransitions() {
         BoardTransition transition;
         while ((transition = (BoardTransition)inputStream.read()) != null) {
-            boardState = transition.apply(boardState, boardData);
-            outputStream.write(transition);
-            System.out.printf("BoardMasterController::applyExternalTransitions: %s, %s\n", transition, boardState);
+            BoardState newBoardState = transition.apply(boardState, boardData);
+            if (newBoardState != null) {
+                boardState = newBoardState;
+                outputStream.write(transition);
+                System.out.printf("BoardMasterController::applyExternalTransitions: %s, %s\n", transition, boardState);
+            }
+            else {
+                InvalidGameEvent invalidTransition = InvalidGameEvent.builder()
+                                .actorId(transition.getActorId())
+                                .reason(transition)
+                                .build();
+                outputStream.write(invalidTransition);
+                System.out.printf("BoardMasterController::applyExternalTransitions: %s, %s\n", invalidTransition, boardState);
+            }
         }
     }
 

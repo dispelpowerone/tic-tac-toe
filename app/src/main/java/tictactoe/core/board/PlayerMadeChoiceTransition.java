@@ -15,6 +15,9 @@ public class PlayerMadeChoiceTransition extends BoardTransition {
     @Override
     public BoardState apply(BoardState state, BoardData data) {
         // Check preconditions
+        if (data.getCells()[cellIndex] != ' ') {
+            return null;
+        }
         // Update data
         final char marker = (player == BoardState.Player.LEFT) ? 'X' : 'O';
         data.markCell(cellIndex, marker);

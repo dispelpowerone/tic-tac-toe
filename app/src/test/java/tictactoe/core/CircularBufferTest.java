@@ -2,34 +2,31 @@ package tictactoe.core;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
 
 /**
 * Test something.
 */
 public class CircularBufferTest {
 
-    @Rule
-    public ExpectedException exceptionRule = ExpectedException.none();
-
     @Test
     public void whenEmpty_thenError() {
         CircularBuffer buffer = new CircularBuffer(10);
 
-        exceptionRule.expect(Exception.class);
-        buffer.pull();
+        Assert.assertThrows(Exception.class, () -> {
+            buffer.pull();
+        });
     }
 
     @Test
     public void whenOverflow_thenError() {
         CircularBuffer buffer = new CircularBuffer(3);
 
-        exceptionRule.expect(Exception.class);
-        buffer.push(1);
-        buffer.push(1);
-        buffer.push(1);
-        buffer.push(1);
+        Assert.assertThrows(Exception.class, () -> {
+            buffer.push(1);
+            buffer.push(1);
+            buffer.push(1);
+            buffer.push(1);
+        });
     }
 
     @Test

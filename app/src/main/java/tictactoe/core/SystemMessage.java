@@ -7,7 +7,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @SuperBuilder
-public class InvalidGameEvent extends Event {
+public class SystemMessage extends Event {
 
     private Event reason;
 }

@@ -5,7 +5,7 @@ import lombok.ToString;
 
 @ToString
 @SuperBuilder
-public class StartGameTransition extends BoardUpdate {
+public class GameStartedUpdate extends BoardUpdate {
 
     @Override
     public BoardState apply(BoardState state, BoardData data) {

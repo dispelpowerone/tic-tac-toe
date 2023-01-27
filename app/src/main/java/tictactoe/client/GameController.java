@@ -96,7 +96,7 @@ public class GameController {
 
         Event event = null;
         if (command == 's') {
-            event = StartGameTransition.builder()
+            event = GameStartedUpdate.builder()
                 .actorId(Long.valueOf(2))
                 .build();
         }

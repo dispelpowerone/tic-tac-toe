@@ -7,7 +7,7 @@ import lombok.ToString;
 @SuperBuilder
 @Getter
 @ToString
-public class WaitPlayerChoiceState extends BoardState {
+public class WaitForPickState extends BoardState {
 
     private BoardState.Player player;
 

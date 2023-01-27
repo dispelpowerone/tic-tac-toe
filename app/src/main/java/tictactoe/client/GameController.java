@@ -77,8 +77,8 @@ public class GameController {
         if (boardState instanceof InitialState) {
             System.out.println("Commands: s");
         }
-        else if (boardState instanceof WaitPlayerChoiceState) {
-            currentPlayer = ((WaitPlayerChoiceState)boardState).getPlayer();
+        else if (boardState instanceof WaitForPickState) {
+            currentPlayer = ((WaitForPickState)boardState).getPlayer();
             System.out.println("Commands: 1-9");
         }
         else {

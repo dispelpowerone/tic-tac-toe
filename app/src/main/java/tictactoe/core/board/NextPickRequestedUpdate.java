@@ -16,7 +16,7 @@ public class NextPickRequestedUpdate extends BoardUpdate {
         // Check preconditions
         // Update data
         // Return next state
-        return WaitPlayerChoiceState.builder()
+        return WaitForPickState.builder()
             .player(player)
             .build();
     }

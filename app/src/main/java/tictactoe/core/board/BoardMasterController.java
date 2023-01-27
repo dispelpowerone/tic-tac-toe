@@ -23,8 +23,8 @@ public class BoardMasterController {
     }
 
     private void applyExternalTransitions() {
-        BoardTransition transition;
-        while ((transition = (BoardTransition)inputStream.read()) != null) {
+        BoardUpdate transition;
+        while ((transition = (BoardUpdate)inputStream.read()) != null) {
             BoardState newBoardState = transition.apply(boardState, boardData);
             if (newBoardState != null) {
                 boardState = newBoardState;
@@ -43,7 +43,7 @@ public class BoardMasterController {
     }
 
     private void applyMasterTransitions() {
-        BoardTransition transition;
+        BoardUpdate transition;
         while ((transition = boardState.nextTransition(boardData)) != null) {
             boardState = transition.apply(boardState, boardData);
             outputStream.write(transition);

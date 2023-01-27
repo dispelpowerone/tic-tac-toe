@@ -46,7 +46,7 @@ public class GameController {
     private void readMasterEvents() {
         Event event;
         while ((event = masterOutputStream.read()) != null) {
-            if (event instanceof BoardTransition) {
+            if (event instanceof BoardUpdate) {
                 playerMasterStream.write(event);
             }
             else {

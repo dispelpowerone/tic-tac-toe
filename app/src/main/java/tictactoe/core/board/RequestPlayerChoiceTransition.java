@@ -7,7 +7,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @SuperBuilder
-public class RequestPlayerChoiceTransition extends BoardTransition {
+public class RequestPlayerChoiceTransition extends BoardUpdate {
 
     private BoardState.Player player;
 

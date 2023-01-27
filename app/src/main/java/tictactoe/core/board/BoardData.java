@@ -1,6 +1,5 @@
 package tictactoe.core.board;
 
-import lombok.Setter;
 import lombok.Getter;
 
 import java.util.Arrays;

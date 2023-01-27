@@ -12,7 +12,7 @@ public class EndOfTurnState extends BoardState {
     private BoardState.Player player;
 
     @Override
-    public BoardTransition nextTransition(BoardData data) {
+    public BoardUpdate nextTransition(BoardData data) {
         // check winner condition
         // check parity condition
         final BoardState.Player nextPlayer =

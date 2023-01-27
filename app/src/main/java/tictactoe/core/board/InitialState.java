@@ -8,7 +8,7 @@ import lombok.ToString;
 public class InitialState extends BoardState {
 
     @Override
-    public BoardTransition nextTransition(BoardData data) {
+    public BoardUpdate nextTransition(BoardData data) {
         return null;
     }
 }

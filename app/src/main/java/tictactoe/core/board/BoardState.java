@@ -11,5 +11,5 @@ public abstract class BoardState {
         RIGHT
     }
 
-    public abstract BoardTransition nextTransition(BoardData data);
+    public abstract BoardUpdate nextTransition(BoardData data);
 }

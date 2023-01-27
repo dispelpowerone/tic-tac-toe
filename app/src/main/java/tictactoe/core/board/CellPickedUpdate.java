@@ -7,7 +7,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @SuperBuilder
-public class PlayerMadeChoiceTransition extends BoardUpdate {
+public class CellPickedUpdate extends BoardUpdate {
 
     private BoardState.Player player;
     private int cellIndex;

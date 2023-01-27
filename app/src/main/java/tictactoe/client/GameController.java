@@ -101,7 +101,7 @@ public class GameController {
                 .build();
         }
         else if (command >= '1' && command <= '9') {
-            event = PlayerMadeChoiceTransition.builder()
+            event = CellPickedUpdate.builder()
                 .actorId(Long.valueOf(2))
                 .player(currentPlayer)
                 .cellIndex(command - '1')

@@ -17,7 +17,7 @@ public class EndOfTurnState extends BoardState {
         // check parity condition
         final BoardState.Player nextPlayer =
             (player == BoardState.Player.LEFT) ? BoardState.Player.RIGHT : BoardState.Player.LEFT;
-        return RequestPlayerChoiceTransition.builder()
+        return NextPickRequestedUpdate.builder()
                     .actorId(Long.valueOf(1))
                     .player(nextPlayer)
                     .build();

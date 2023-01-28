@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.Getter;
 
 @Getter
-public class BoardPlayerController {
+public class BoardClientController {
 
     private BoardData boardData = new BoardData();
     private BoardState boardState = InitialState.builder().build();

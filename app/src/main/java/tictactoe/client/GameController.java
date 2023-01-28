@@ -3,7 +3,7 @@ package tictactoe.client;
 import tictactoe.core.EventStream;
 import tictactoe.core.Event;
 import tictactoe.core.board.BoardMasterController;
-import tictactoe.core.board.BoardPlayerController;
+import tictactoe.core.board.BoardClientController;
 import tictactoe.core.board.BoardData;
 import tictactoe.core.board.BoardState;
 // Transitions and states
@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class GameController {
 
     private BoardMasterController boardMasterController = new BoardMasterController();
-    private BoardPlayerController boardPlayerController = new BoardPlayerController();
+    private BoardClientController boardPlayerController = new BoardClientController();
     private EventStream playerInputStream = new EventStream();
     private EventStream playerMasterStream = new EventStream();
     private EventStream materInputStream = new EventStream();

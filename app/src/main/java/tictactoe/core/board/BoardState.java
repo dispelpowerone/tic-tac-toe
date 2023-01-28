@@ -7,8 +7,8 @@ public abstract class BoardState {
 
     public enum Player {
         NONE,
-        LEFT,
-        RIGHT
+        PLAYER_A,
+        PLAYER_B
     }
 
     public abstract BoardUpdate nextTransition(BoardData data);

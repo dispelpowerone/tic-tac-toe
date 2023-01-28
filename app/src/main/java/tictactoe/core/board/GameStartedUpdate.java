@@ -14,7 +14,7 @@ public class GameStartedUpdate extends BoardUpdate {
         data.reset();
         // Return next state
         return WaitForPickState.builder()
-            .player(BoardState.Player.LEFT)
+            .player(BoardState.Player.PLAYER_A)
             .build();
     }
 }

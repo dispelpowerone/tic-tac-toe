@@ -16,7 +16,7 @@ public class EndOfTurnState extends BoardState {
         // check winner condition
         // check parity condition
         final BoardState.Player nextPlayer =
-            (player == BoardState.Player.LEFT) ? BoardState.Player.RIGHT : BoardState.Player.LEFT;
+            (player == BoardState.Player.PLAYER_A) ? BoardState.Player.PLAYER_B : BoardState.Player.PLAYER_A;
         return NextPickRequestedUpdate.builder()
                     .actorId(Long.valueOf(1))
                     .player(nextPlayer)

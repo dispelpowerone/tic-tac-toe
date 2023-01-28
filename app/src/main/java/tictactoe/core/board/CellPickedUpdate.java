@@ -19,7 +19,7 @@ public class CellPickedUpdate extends BoardUpdate {
             return null;
         }
         // Update data
-        final char marker = (player == BoardState.Player.LEFT) ? 'X' : 'O';
+        final char marker = (player == BoardState.Player.PLAYER_A) ? 'X' : 'O';
         data.markCell(cellIndex, marker);
         // Return next state
         return EndOfTurnState.builder()

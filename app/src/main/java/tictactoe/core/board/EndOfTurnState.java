@@ -9,14 +9,14 @@ import lombok.ToString;
 @ToString
 public class EndOfTurnState extends BoardState {
 
-    private BoardState.Player player;
+    private BoardData.Player player;
 
     @Override
-    public BoardUpdate nextTransition(BoardData data) {
+    public BoardEvent nextTransition(BoardData data) {
         // check winner condition
         // check parity condition
-        final BoardState.Player nextPlayer =
-            (player == BoardState.Player.PLAYER_A) ? BoardState.Player.PLAYER_B : BoardState.Player.PLAYER_A;
+        final BoardData.Player nextPlayer =
+            (player == BoardData.Player.PLAYER_A) ? BoardData.Player.PLAYER_B : BoardData.Player.PLAYER_A;
         return NextPickRequestedUpdate.builder()
                     .actorId(Long.valueOf(1))
                     .player(nextPlayer)

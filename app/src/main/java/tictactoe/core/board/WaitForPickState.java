@@ -9,10 +9,10 @@ import lombok.ToString;
 @ToString
 public class WaitForPickState extends BoardState {
 
-    private BoardState.Player player;
+    private BoardData.Player player;
 
     @Override
-    public BoardUpdate nextTransition(BoardData data) {
+    public BoardEvent nextTransition(BoardData data) {
         return null;
     }
 }

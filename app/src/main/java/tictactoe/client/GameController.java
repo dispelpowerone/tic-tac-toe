@@ -20,7 +20,7 @@ public class GameController {
     private EventStream materInputStream = new EventStream();
     private EventStream masterOutputStream = new EventStream();
     private Scanner inputScanner;
-    private BoardState.Player currentPlayer;
+    private BoardData.Player currentPlayer;
 
     public GameController() {
         // Master controller
@@ -46,7 +46,7 @@ public class GameController {
     private void readMasterEvents() {
         Event event;
         while ((event = masterOutputStream.read()) != null) {
-            if (event instanceof BoardUpdate) {
+            if (event instanceof BoardEvent) {
                 playerMasterStream.write(event);
             }
             else {

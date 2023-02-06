@@ -27,15 +27,15 @@ public class BoardClientController {
     }
 
     private void applyExternalTransitions() {
-        BoardUpdate transition;
-        while ((transition = (BoardUpdate)masterInputStream.read()) != null) {
+        BoardEvent transition;
+        while ((transition = (BoardEvent)masterInputStream.read()) != null) {
             boardState = transition.apply(boardState, boardData);
         }
     }
 
     private void applyPlayerTransitions() {
-        BoardUpdate transition;
-        while ((transition = (BoardUpdate)playerInputStream.read()) != null) {
+        BoardEvent transition;
+        while ((transition = (BoardEvent)playerInputStream.read()) != null) {
             outputStream.write(transition);
         }
     }

@@ -7,9 +7,9 @@ import lombok.ToString;
 @ToString
 @Getter
 @SuperBuilder
-public class NextPickRequestedUpdate extends BoardUpdate {
+public class NextPickRequestedUpdate extends BoardEvent {
 
-    private BoardState.Player player;
+    private BoardData.Player player;
 
     @Override
     public BoardState apply(BoardState state, BoardData data) {

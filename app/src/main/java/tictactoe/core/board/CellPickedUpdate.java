@@ -7,19 +7,24 @@ import lombok.ToString;
 @ToString
 @Getter
 @SuperBuilder
-public class CellPickedUpdate extends BoardUpdate {
+public class CellPickedUpdate extends BoardEvent {
 
-    private BoardState.Player player;
+    private BoardData.Player player;
     private int cellIndex;
 
     @Override
     public BoardState apply(BoardState state, BoardData data) {
         // Check preconditions
+        if (!(state instanceof WaitForPickState)) {
+            return null;
+        }
+        //
         if (data.getCells()[cellIndex] != ' ') {
             return null;
         }
+
         // Update data
-        final char marker = (player == BoardState.Player.PLAYER_A) ? 'X' : 'O';
+        final char marker = (player == BoardData.Player.PLAYER_A) ? 'X' : 'O';
         data.markCell(cellIndex, marker);
         // Return next state
         return EndOfTurnState.builder()

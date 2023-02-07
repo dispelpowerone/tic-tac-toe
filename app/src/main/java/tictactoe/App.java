@@ -6,8 +6,6 @@ package tictactoe;
 
 import tictactoe.client.GameController;
 
-import java.util.Scanner;
-
 /**
 * Main.
 */

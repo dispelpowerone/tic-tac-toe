@@ -7,5 +7,6 @@ import tictactoe.core.Event;
 @SuperBuilder
 public abstract class BoardEvent extends Event {
 
-    public abstract BoardState apply(BoardState state, BoardData data);
+    public abstract BoardError check(BoardData data);
+    public abstract BoardEvent apply(BoardData data);
 }

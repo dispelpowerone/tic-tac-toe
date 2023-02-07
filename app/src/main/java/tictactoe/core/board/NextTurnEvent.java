@@ -7,7 +7,7 @@ import tictactoe.core.board.BoardData.Player;
 
 @ToString
 @SuperBuilder
-public class StartNewGameEvent extends BoardEvent {
+public class NextTurnEvent extends BoardEvent {
 
     @Override
     public BoardError check(BoardData data) {
@@ -16,9 +16,13 @@ public class StartNewGameEvent extends BoardEvent {
 
     @Override
     public BoardEvent apply(BoardData data) {
-        data.reset();
-        return NextTurnEvent.builder()
+        Player nextPlayer = data.getActivePlayer() == Player.PLAYER_A ?
+                                Player.PLAYER_B :
+                                Player.PLAYER_A;
+        data.setActivePlayer(nextPlayer);
+        return PickRequestEvent.builder()
             .actorId(0L)
+            .player(nextPlayer)
             .build();
     }
 }

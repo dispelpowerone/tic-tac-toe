@@ -5,7 +5,6 @@ import tictactoe.core.Event;
 import tictactoe.core.board.BoardMasterController;
 import tictactoe.core.board.BoardClientController;
 import tictactoe.core.board.BoardData;
-import tictactoe.core.board.BoardState;
 // Transitions and states
 import tictactoe.core.board.*;
 
@@ -57,7 +56,7 @@ public class GameController {
 
     public void draw() {
         drawBoard(boardPlayerController.getBoardData());
-        drawCommands(boardPlayerController.getBoardState());
+        drawCommands(boardPlayerController.getBoardData());
         readPlayerCommand();
     }
 
@@ -72,13 +71,13 @@ public class GameController {
         System.out.printf("+---+---+---+\n");
     }
 
-    private void drawCommands(BoardState boardState) {
-        System.out.printf("State: %s\n", boardState.toString());
-        if (boardState instanceof InitialState) {
+    private void drawCommands(BoardData boardData) {
+        System.out.printf("State: %s\n", boardData.getState().toString());
+        if (boardData.getState() == BoardData.State.INITIAL) {
             System.out.println("Commands: s");
         }
-        else if (boardState instanceof WaitForPickState) {
-            currentPlayer = ((WaitForPickState)boardState).getPlayer();
+        else if (boardData.getState() == BoardData.State.PICK_REQUESTED) {
+            currentPlayer = boardData.getActivePlayer();
             System.out.println("Commands: 1-9");
         }
         else {
@@ -97,12 +96,12 @@ public class GameController {
         Event event = null;
         if (command == 's') {
             event = StartNewGameEvent.builder()
-                .actorId(Long.valueOf(2))
+                .actorId(2L)
                 .build();
         }
         else if (command >= '1' && command <= '9') {
-            event = CellPickedUpdate.builder()
-                .actorId(Long.valueOf(2))
+            event = PickEvent.builder()
+                .actorId(2L)
                 .player(currentPlayer)
                 .cellIndex(command - '1')
                 .build();

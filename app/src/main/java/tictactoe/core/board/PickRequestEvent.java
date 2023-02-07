@@ -1,13 +1,15 @@
 package tictactoe.core.board;
 
 import lombok.experimental.SuperBuilder;
+import lombok.Getter;
 import lombok.ToString;
 
-import tictactoe.core.board.BoardData.Player;
-
 @ToString
+@Getter
 @SuperBuilder
-public class StartNewGameEvent extends BoardEvent {
+public class PickRequestEvent extends BoardEvent {
+
+    private BoardData.Player player;
 
     @Override
     public BoardError check(BoardData data) {
@@ -16,9 +18,7 @@ public class StartNewGameEvent extends BoardEvent {
 
     @Override
     public BoardEvent apply(BoardData data) {
-        data.reset();
-        return NextTurnEvent.builder()
-            .actorId(0L)
-            .build();
+        data.setState(BoardData.State.PICK_REQUESTED);
+        return null;
     }
 }

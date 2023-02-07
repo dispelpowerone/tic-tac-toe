@@ -9,7 +9,6 @@ import lombok.Setter;
 public class BoardMasterController {
 
     private BoardData boardData = new BoardData();
-    private BoardState boardState = InitialState.builder().build();
 
     @Setter
     private InputEventStream inputStream;
@@ -18,36 +17,30 @@ public class BoardMasterController {
     private OutputEventStream outputStream;
 
     public void update() {
-        applyExternalTransitions();
-        applyMasterTransitions();
+        applyEvents();
     }
 
-    private void applyExternalTransitions() {
-        BoardEvent transition;
-        while ((transition = (BoardEvent)inputStream.read()) != null) {
-            BoardState newBoardState = transition.apply(boardState, boardData);
-            if (newBoardState != null) {
-                boardState = newBoardState;
-                outputStream.write(transition);
-                System.out.printf("BoardMasterController::applyExternalTransitions: %s, %s\n", transition, boardState);
-            }
-            else {
-                SystemMessage message = SystemMessage.builder()
-                                .actorId(transition.getActorId())
-                                .reason(transition)
-                                .build();
-                outputStream.write(message);
-                System.out.printf("BoardMasterController::applyExternalTransitions: %s, %s\n", message, boardState);
-            }
-        }
-    }
-
-    private void applyMasterTransitions() {
-        BoardEvent transition;
-        while ((transition = boardState.nextTransition(boardData)) != null) {
-            boardState = transition.apply(boardState, boardData);
-            outputStream.write(transition);
-            System.out.printf("BoardMasterController::applyMasterTransitions: %s, %s\n", transition, boardState);
+    private void applyEvents() {
+        BoardEvent event;
+        BoardEvent reaction;
+        while ((event = (BoardEvent)inputStream.read()) != null) {
+            do {
+                // Check event to keep data valid
+                BoardError error = event.check(boardData);
+                if (error != null) {
+                    SystemMessage message = SystemMessage.builder()
+                        .actorId(0L)
+                        .reason(event)
+                        .build();
+                    outputStream.write(message);
+                    // Stop reactions loop
+                    break;
+                }
+                else {
+                    reaction = event.apply(boardData);
+                    outputStream.write(event);
+                }
+            } while ((event = reaction) != null);
         }
     }
 }

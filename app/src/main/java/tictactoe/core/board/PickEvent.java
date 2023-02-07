@@ -7,28 +7,28 @@ import lombok.ToString;
 @ToString
 @Getter
 @SuperBuilder
-public class CellPickedUpdate extends BoardEvent {
+public class PickEvent extends BoardEvent {
 
     private BoardData.Player player;
     private int cellIndex;
 
     @Override
-    public BoardState apply(BoardState state, BoardData data) {
-        // Check preconditions
-        if (!(state instanceof WaitForPickState)) {
-            return null;
-        }
-        //
+    public BoardError check(BoardData data) {
         if (data.getCells()[cellIndex] != ' ') {
-            return null;
+            return new BoardError("Cell is not clear");
         }
+        return null;
+    }
 
-        // Update data
+    @Override
+    public BoardEvent apply(BoardData data) {
         final char marker = (player == BoardData.Player.PLAYER_A) ? 'X' : 'O';
         data.markCell(cellIndex, marker);
-        // Return next state
-        return EndOfTurnState.builder()
-            .player(player)
-            .build();
+
+        // Check End Of Game conditions
+        if (true) {
+            return NextTurnEvent.builder().actorId(0L).build();
+        }
+        return null;
     }
 }

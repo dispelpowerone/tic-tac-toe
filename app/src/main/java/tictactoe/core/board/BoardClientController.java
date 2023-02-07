@@ -10,7 +10,6 @@ import lombok.Getter;
 public class BoardClientController {
 
     private BoardData boardData = new BoardData();
-    private BoardState boardState = InitialState.builder().build();
 
     @Setter
     private InputEventStream masterInputStream;
@@ -22,21 +21,21 @@ public class BoardClientController {
     private OutputEventStream outputStream;
 
     public void update() {
-        applyPlayerTransitions();
-        applyExternalTransitions();
+        applyLocalEvents();
+        applyMaterEvents();
     }
 
-    private void applyExternalTransitions() {
-        BoardEvent transition;
-        while ((transition = (BoardEvent)masterInputStream.read()) != null) {
-            boardState = transition.apply(boardState, boardData);
+    private void applyMaterEvents() {
+        BoardEvent event;
+        while ((event = (BoardEvent)masterInputStream.read()) != null) {
+            event.apply(boardData);
         }
     }
 
-    private void applyPlayerTransitions() {
-        BoardEvent transition;
-        while ((transition = (BoardEvent)playerInputStream.read()) != null) {
-            outputStream.write(transition);
+    private void applyLocalEvents() {
+        BoardEvent event;
+        while ((event = (BoardEvent)playerInputStream.read()) != null) {
+            outputStream.write(event);
         }
     }
 }
